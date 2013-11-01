@@ -13,7 +13,7 @@ public class AppTest {
     public static void main(String[] args) {
         //AppTest.getAll();
         //AppTest.addCampo();
-        AppTest.listCampo();
+        AppTest.updateLocal();
     }
 
     public static void getAll() {
@@ -24,6 +24,18 @@ public class AppTest {
         for (Local local : locales) {
             System.out.println(local.getDescripcion() + " " + local.getTelefono());
         }
+    }
+    
+    public static void updateLocal() {
+          ApplicationContext context = new ClassPathXmlApplicationContext("h_database.xml");
+        LocalDAO localDAO = (LocalDAO) context.getBean("localDAO");
+        CampoDAO campoDAO = (CampoDAO) context.getBean("campoDAO");
+        
+        
+        Local local = new Local(13l);
+        local.setDescripcion("Local Chorrillos");
+        localDAO.update(local);
+        
     }
     
     public static void addCampo(){

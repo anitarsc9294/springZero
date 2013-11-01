@@ -7,6 +7,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository("localDAO")
 public class LocalDAOH extends BaseHibernateDAO implements LocalDAO {
@@ -22,15 +23,18 @@ public class LocalDAOH extends BaseHibernateDAO implements LocalDAO {
         criteria.add(Restrictions.eq("id", t.getId()));
         return (Local) criteria.uniqueResult();
     }
-
+    
+    @Transactional
     public void save(Local t) {
         this.getSession().save(t);
     }
-
+    
+    @Transactional
     public void update(Local t) {
-        this.getSession().update(t);
+        this.getSession().merge(t);
     }
 
+    @Transactional
     public void delete(Local t) {
         this.getSession().delete(t);
     }
