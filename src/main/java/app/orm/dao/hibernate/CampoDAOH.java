@@ -7,6 +7,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository("campoDAO")
 public class CampoDAOH extends BaseHibernateDAO implements CampoDAO {
@@ -23,14 +24,17 @@ public class CampoDAOH extends BaseHibernateDAO implements CampoDAO {
         return (Campo) criteria.uniqueResult();
     }
 
+    @Transactional
     public void save(Campo t) {
         this.getSession().save(t);
     }
 
+    @Transactional
     public void update(Campo t) {
         this.getSession().update(t);
     }
 
+    @Transactional
     public void delete(Campo t) {
         this.getSession().delete(t);
     }
